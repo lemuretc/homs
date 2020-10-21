@@ -114,6 +114,22 @@ get:
       - <<: *default_process-definition
         id: "testProcess:24:24"
         deploymentId: "24"
+      - <<:
+        id: "testProcess:25:25"
+        key: "new_customer"
+        version: 1
+        name: "New Customer"
+        description: null
+        tenantId: null
+        deploymentId: "1313123"
+        resource: "testProcess.bpmn"
+        diagram: null
+        category: "http://bpmn.io/schema/bpmn"
+        suspended: false
+        versionTag: null
+        historyTimeToLive: null
+        id: "testProcess:25:25"
+        deploymentId: "25"
 
   # form definitions
   task/816011/deployed-form: &form_with_everything
@@ -536,10 +552,12 @@ get:
           type: submit_select
           css_class: col-xs-12
           options:
-          - name: Do Magic!
+          - name: doMagic
+            label: Do Magic!
             value: Do Magic
             css_class: btn btn-success btn-lg
-          - name: Undo
+          - name: undo
+            label: Undo
             value: Canceled
             css_class: btn btn-danger btn-lg
   "task/999999/deployed-form":
@@ -567,10 +585,12 @@ get:
           type: submit_select
           css_class: col-xs-12
           options:
-          - name: Do Magic!
+          - name: doMagic
+            label: Do Magic!
             value: Do Magic
             css_class: btn btn-success btn-lg
-          - name: Undo
+          - name: undo
+            label: Undo
             value: Canceled
             css_class: btn btn-danger btn-lg
   "task/111112/deployed-form":
@@ -856,6 +876,39 @@ get:
                 filter_condition: "SELECT 123, 'Some text' FROM DUAL"
   task/111123/deployed-form: *form_with_everything
   task/111124/deployed-form: *form_with_everything
+  task/111125/deployed-form:
+    "": |
+      form:
+        css_class: col-xs-12 col-sm-6 col-md-5 col-lg-4
+        fields:
+          - name: homsOrderDataCustomerCity
+            type: select
+            label: City
+            nullable: false
+            required: true
+            choices:
+              - Moscow
+              - Saint Petersburg
+              - Novosibirsk
+              - Yekaterinburg
+              - Nizhniy Novgorod
+              - Samara
+            css_class: col-xs-6 col-sm-4 col-md-3
+          - name: homsOrderDataCustomerStreet
+            type: string
+            label: Street
+            required: true
+            css_class: col-xs-6 col-sm-4 col-md-3
+          - name: homsOrderDataCustomerHouse
+            type: string
+            label: House
+            required: true
+            css_class: col-xs-6 col-sm-4 col-md-3
+          - name: homsOrderDataCustomerEntrance
+            type: string
+            label: Entrance
+            required: true
+            css_class: col-xs-6 col-sm-4 col-md-3
 
   # task variables
   task/816011/variables:
@@ -1119,6 +1172,15 @@ get:
         type: "string"
         value: "ORD-24"
       homsOrderDataSelect:
+        type: "string"
+        value: null
+
+  task/111125/variables:
+    "":
+      homsOrderCode:
+        type: "string"
+        value: "ORD-25"
+      homsOrderDataCustomerCity:
         type: "string"
         value: null
 
@@ -1453,6 +1515,14 @@ post:
         processInstanceId: 23
         description: 'Some test description'
         processDefinitionId: "testProcess:23:23"
+        processDefinitionId: "testProcess:24:24"
+      - <<: *default_tasks
+        id: "111125"
+        name: "Enter customer's address"
+        formKey: "test_form_with_disabled_buttons.yml"
+        processInstanceId: 25
+        processDefinitionId: "testProcess:25:25"
+        taskDefinitionKey: "Activity_1jedmqv"
     "active=true&candidateUser=demo&processVariables[][name]=homsOrderCode&processVariables[][operator]=like&processVariables[][value]=%":
       - <<: *default_tasks
         id: "111124"
@@ -1633,6 +1703,11 @@ post:
         - <<: *default_process-instances
           id: "111123"
           processDefinitionId: "testProcess:23:23"
+    "active=true&variables[][name]=homsOrderCode&variables[][value]=ORD-25&variables[][operator]=eq":
+      data:
+        - <<: *default_process-instances
+          id: "111125"
+          processDefinitionId: "testProcess:25:25"
 
   task/816011/submit-form:
     "variables[homsOrderDataAddress][value]=test+address&variables[homsOrderDataBeginDate][value]=2016-09-30T11:52:20+00:00&variables[homsOrderDataDisabledEndDate][value]=&variables[homsOrderDataEndDate][value]=2016-09-30T11:52:20+00:00&variables[homsOrderDataHomePlace][value]=test+home+place&variables[homsOrderDataReason][value]=&variables[homsOrderDataRecommendation][value]=&variables[homsOrderDataSelect][value]=123456&variables[homsOrderDataSomeCheckbox][value]=false&variables[homsOrderDataSomeDatetime][value]=&variables[homsOrderDataSomeDisabledCheckbox][value]=false&variables[homsOrderDataSomeDisabledSelect][value]=&variables[homsOrderDataSomeDisabledText][value]=&variables[homsOrderDataSomeSelect][value]=&variables[homsOrderDataSomeStr][value]=&variables[homsOrderDataSomeText][value]=&variables[homsOrderDataWorkAddress][value]=&variables[homsOrderDataWorkPlace][value]=":
@@ -1664,7 +1739,7 @@ post:
     "userId=demo": null
 
   variable-instance:
-    "processInstanceIdIn[]=814972&processInstanceIdIn[]=2&processInstanceIdIn[]=3&processInstanceIdIn[]=4&processInstanceIdIn[]=5&processInstanceIdIn[]=6&processInstanceIdIn[]=7&processInstanceIdIn[]=8&processInstanceIdIn[]=9&processInstanceIdIn[]=10&processInstanceIdIn[]=11&processInstanceIdIn[]=12&processInstanceIdIn[]=13&processInstanceIdIn[]=14&processInstanceIdIn[]=15&processInstanceIdIn[]=16&processInstanceIdIn[]=17&processInstanceIdIn[]=18&processInstanceIdIn[]=19&processInstanceIdIn[]=20&processInstanceIdIn[]=21&processInstanceIdIn[]=22&processInstanceIdIn[]=23&processInstanceIdIn[]=24&variableName=homsOrderCode":
+    "processInstanceIdIn[]=814972&processInstanceIdIn[]=2&processInstanceIdIn[]=3&processInstanceIdIn[]=4&processInstanceIdIn[]=5&processInstanceIdIn[]=6&processInstanceIdIn[]=7&processInstanceIdIn[]=8&processInstanceIdIn[]=9&processInstanceIdIn[]=10&processInstanceIdIn[]=11&processInstanceIdIn[]=12&processInstanceIdIn[]=13&processInstanceIdIn[]=14&processInstanceIdIn[]=15&processInstanceIdIn[]=16&processInstanceIdIn[]=17&processInstanceIdIn[]=18&processInstanceIdIn[]=19&processInstanceIdIn[]=20&processInstanceIdIn[]=21&processInstanceIdIn[]=22&processInstanceIdIn[]=23&processInstanceIdIn[]=24&processInstanceIdIn[]=25&variableName=homsOrderCode":
       - processInstanceId: 814972
         type: string
         name: homsOrderCode
@@ -1761,6 +1836,10 @@ post:
         type: string
         name: homsOrderCode
         value: ORD-24
+      - processInstanceId: 25
+        type: string
+        name: homsOrderCode
+        value: ORD-25
 
     variableName=homsOrderCode: []
 
