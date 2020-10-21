@@ -4,9 +4,11 @@ v2.5.0 [unreleased]
 - [#493](https://github.com/latera/homs/pull/493) Add missing labels for inputs on search order form.
 - [#497](https://github.com/latera/homs/pull/497) Handle connection error when try to print order.
 - [#499](https://github.com/latera/homs/pull/499) Increase memory limit for worker.
+- [#510](https://github.com/latera/homs/pull/510) Add i18n for business processes.
 
 ### Refactoring
 - [#506](https://github.com/latera/homs/pull/506) Update ruby and js dependencies.
+- [#510](https://github.com/latera/homs/pull/510) Refactor render() of form field components.
 
 v2.4.1 [2020-09-24]
 -------------------
