@@ -74,7 +74,7 @@ RUN cp -r /opt/homs/config/* /tmp/config
 
 EXPOSE 3000
 
-USER homs
+USER root
 
 RUN yarn install && \
   yarn lint && \
